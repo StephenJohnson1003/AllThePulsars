@@ -1,2 +1,7 @@
 # AllThePulsars
-A visualisation of all the pulsars in the ATFN pulsar catalogue 
+An HTML visualisation of the Australia Telescope National Facility's pulsar catalogue 
+
+https://www.atnf.csiro.au/research/pulsar/psrcat/
+For the full catalogue.
+
+
