@@ -4486,6 +4486,21 @@
         const gridHelper = new THREE.GridHelper(20, 20, 0x444444, 0x222222);
         gridHelper.rotation.x = Math.PI / 2;
         scene.add(gridHelper);
+		
+		const planeSize = 150; // Adjust to match coordinate range * scale
+		const planeGeo = new THREE.PlaneGeometry(planeSize, planeSize);
+		const planeMat = new THREE.MeshBasicMaterial({
+			map: new THREE.TextureLoader().load('./compressedAndTranspartenGaiaMWmap.png'),
+			transparent: true,
+			opacity: 0.55,
+			side: THREE.DoubleSide,
+			depthWrite: false
+		});
+
+		const galaxyPlane = new THREE.Mesh(planeGeo, planeMat);
+		// Shift so the image's Galactic Center matches Sagittarius A* marker position
+		galaxyPlane.position.set(0, -8.5 * scale, -0.05);
+		scene.add(galaxyPlane);
 
         const scale = 5;
         // Increased geometry size to make them easier to hover over
