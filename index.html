@@ -4484,7 +4484,7 @@
 
         scene.add(new THREE.AmbientLight(0xffffff, 0.8));
         const gridHelper = new THREE.GridHelper(20, 20, 0x444444, 0x222222);
-        // gridHelper.rotation.x = Math.PI / 2;
+        gridHelper.rotation.set(0, 0, Math.PI / 2);
         scene.add(gridHelper);
 		
 		const planeSize = 150; // Adjust to match coordinate range * scale
@@ -4499,6 +4499,7 @@
 		const galaxyPlane = new THREE.Mesh(planeGeo, planeMat);
 		// Shift so the image's Galactic Center matches Sagittarius A* marker position
 		galaxyPlane.position.set(0, -42 , -0.05);
+		galaxyPlane.rotation.y = Math.PI / 2;
 		scene.add(galaxyPlane);
 
         const scale = 5;
