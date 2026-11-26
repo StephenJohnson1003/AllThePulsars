@@ -4566,28 +4566,33 @@
         });
 		
 		window.addEventListener('click', () => {
-            raycaster.setFromCamera(mouse, camera);
-            const intersects = raycaster.intersectObjects(pulsarMeshes);
-
-            if (intersects.length > 0) {
-                const clickedMesh = intersects[0].object;
-                const pulsarName = clickedMesh.userData.name;
-                
-                // Option A: Open Google Search with the pulsar name in a new tab
-                // const searchUrl = `https://www.google.com/search?q=pulsar+${encodeURIComponent(pulsarName)}`;
-                
-                // Option B: If you prefer DuckDuckGo, uncomment the line below instead:
-                const searchUrl = `https://duckduckgo.com/?q=pulsar+${encodeURIComponent(pulsarName)}`;
-
-                window.open(searchUrl, '_blank');
-
-                // Visual feedback: briefly turn the pulsar bright green when clicked
-                clickedMesh.material.color.set(0x00ff00);
-                setTimeout(() => {
-                    clickedMesh.material.color.set(0xff00ff);
-                }, 300);
-            }
-        });
+		    raycaster.setFromCamera(mouse, camera);
+		    const intersects = raycaster.intersectObjects(pulsarMeshes);
+		
+		    if (intersects.length > 0) {
+		        const clickedMesh = intersects[0].object;
+		        const objectName = clickedMesh.userData.name;
+		
+		        let searchQuery;
+		        if (objectName === "The Sun (Origin)") {
+		            searchQuery = "The Sun";
+		        } else if (objectName === "Sagittairus A*") {
+		            searchQuery = "Sagittarius A*";
+		        } else {
+		            searchQuery = `pulsar ${objectName}`;
+		        }
+		
+		        const searchUrl = `https://duckduckgo.com/?q=${encodeURIComponent(searchQuery)}`;
+		        window.open(searchUrl, '_blank');
+		
+		        // Visual feedback: briefly turn the clicked object bright green
+		        const originalColor = clickedMesh.material.color.getHex();
+		        clickedMesh.material.color.set(0x00ff00);
+		        setTimeout(() => {
+		            clickedMesh.material.color.setHex(originalColor);
+		        }, 300);
+		    }
+		});
 
         function checkIntersections() {
             raycaster.setFromCamera(mouse, camera);
